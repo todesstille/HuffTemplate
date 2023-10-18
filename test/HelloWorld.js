@@ -36,7 +36,7 @@ describe("Hello World", function () {
     });
 
     it("could set new greeting", async () => {
-      await helloWorld.call("0x48656c6c6f2c20736f6c696469747921", 0);
+      await helloWorld.call("0x48656c6c6f2c20736f6c696469747921");
       let data = await helloWorld.callStatic("0x");
       let abiCoder = new ethers.utils.AbiCoder;
       let greeting = abiCoder.decode(["string"], data);
@@ -44,7 +44,7 @@ describe("Hello World", function () {
     });
 
     it("reverts if string too big", async () => {
-      await expect(helloWorld.call("0x484848484848484848484848484848484848484848484848484848484848484848", 0))
+      await expect(helloWorld.call("0x484848484848484848484848484848484848484848484848484848484848484848"))
         .to.be.reverted;
     });
 

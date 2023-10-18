@@ -41,26 +41,25 @@ async function deploy() {
     }
 }
 
-async function callStatic(calldata) {
+async function callStatic(calldata, value = 0) {
       let result = await ethers.provider.call({
         from: this.signer.address,
         to: this.address,
         data: calldata,
+        value: value,
       })
       return result;
 }
 
-async function call(calldata, value) {
-    value = (value == null) ? 0 : value;
+async function call(calldata, value = 0) {
     let tx = await this.signer.sendTransaction({
         to: this.address,
         data: calldata,
         value: value,
       });
     let receipt = await tx.wait();
-    console.log("Gas used", receipt.gasUsed.toString())
-
-    // return tx;
+    // console.log("Gas used", receipt.gasUsed.toString())
+    return tx;
 }
 
 function connect(signer) {
