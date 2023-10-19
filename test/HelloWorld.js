@@ -15,9 +15,6 @@ describe("Hello World", function () {
 
   before(async () => {
 
-    forking = initForking("bsc", 32000000);
-    await forking.start();
-
     [admin] = await ethers.getSigners();
 
     bytecode = await readBytecode();
