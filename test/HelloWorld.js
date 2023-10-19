@@ -2,6 +2,7 @@ const { expect } = require("chai");
 const { ethers } = require("hardhat");
 const { BigNumber } = require("ethers");
 const { getContractFactory } = require("@nomiclabs/hardhat-ethers/types");
+const {initForking} = require('./helpers/forking');
 
 async function readBytecode() {
   const fs = require("fs");
@@ -14,8 +15,10 @@ describe("Hello World", function () {
 
   before(async () => {
 
-    [admin] = await ethers.getSigners();
+    forking = initForking("bsc", 32000000);
+    await forking.start();
 
+    [admin] = await ethers.getSigners();
 
     bytecode = await readBytecode();
     const {deployBytecode} = require('./helpers/bytecode');
